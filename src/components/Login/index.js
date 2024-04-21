@@ -1,7 +1,9 @@
 import React from 'react'
-
+import './index.css'
 export const Login = () => {
   return (
-    <div>index</div>
+    <div className='background'>
+
+    </div>
   )
 }
