@@ -4,6 +4,7 @@ import Gallery from './components/Gallery';
 import AlbumDetail from './components/AlbumDetail'; 
 import Login from './components/Login';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ImageUpload from './components/ImageUpload';
 // import ImageUpload from './components/ImageUpload';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Router>
       <div>
         <Navbar />
+        <ImageUpload isUploaded={false}/>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/albums" element={<Gallery />} />
