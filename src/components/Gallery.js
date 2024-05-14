@@ -1,36 +1,30 @@
 import React, { useState } from 'react';
-import Folder from './Folder';
-import Photo from './Photo';
+import Album from './Album';
+import ImageList from './ImageList';
+import { Link } from 'react-router-dom';
+
+const albums = [
+  { id: 1, name: 'Album 1', images: ['../Resources/gallery.png', '../Resources/gallery.png', '../Resources/gallery.png'] },
+  { id: 2, name: 'Album 2', images: ['../Resources/gallery.png', '../Resources/gallery.png', '../Resources/gallery.png'] },
+];
 
 const Gallery = () => {
-  const [photos, setPhotos] = useState([]);
-  const [folders, setFolders] = useState([
-    { id: 1, name: 'Folder 1', photos: [] },
-    { id: 2, name: 'Folder 2', photos: [] },
-  ]);
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
 
-  const handleDrop = (files, folderId) => {
-    const updatedFolders = folders.map((folder) => {
-      if (folder.id === folderId) {
-        return { ...folder, photos: [...folder.photos, ...files] };
-      }
-      return folder;
-    });
-    setFolders(updatedFolders);
+  const handleAlbumClick = (albumId) => {
+    setSelectedAlbum(albumId); // Update selectedAlbum state with the clicked albumId
   };
 
   return (
-    <div className="app">
-      <div className="folders">
-        {folders.map((folder) => (
-          <Folder key={folder.id} name={folder.name} onDrop={(files) => handleDrop(files, folder.id)} />
+    <div>
+      <ul className="album-list mt">
+        {albums.map(album => (
+          <li key={album.id}>
+            <Album albumName={album.name} albumId={album.id} onClick={() => handleAlbumClick(album.id)} />
+          </li>
         ))}
-      </div>
-      <div className="photos">
-        {photos.map((photo, index) => (
-          <Photo key={index} photo={photo} />
-        ))}
-      </div>
+      </ul>
+      {selectedAlbum && <ImageList images={albums[selectedAlbum - 1].images} />} {/* Adjusted to use selectedAlbum - 1 as index */}
     </div>
   );
 };
