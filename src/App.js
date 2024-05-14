@@ -1,14 +1,20 @@
 import React from 'react';
+import './App.css';
+import  Login  from './components/Login';
+import SignUp  from './components/SignUp';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Gallery from './components/Gallery';
 
 function App() {
   return (
-    <div>
-      
-      {/* <Navbar /> */}
-      <Gallery />
-    </div>
+    <Router>
+        <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/gallery' element={<Gallery />}/>
+        </Routes>
+    </Router>
   );
 }
 
