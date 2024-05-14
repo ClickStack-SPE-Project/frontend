@@ -1,15 +1,19 @@
 import React from 'react'
 import { useState } from 'react';
 import './index.css'
+import { useNavigate } from "react-router-dom";
 import userInstance from './Services/onSubmit';
-import { useNavigation } from "react-router-dom";
-export const Login = () => {
+
+const Login = () => {
+  const navigate = useNavigate();
   const [creds, setCreds] = useState({ email: "", password: "" });
 
   const [errs, setErrs] = useState({ email: "", password: "" });
 
   const [loginError, setLoginError] = useState('');
-  const navigate = useNavigation()
+
+  
+  
   const validate = () => {
     let errors = {};
     
@@ -42,17 +46,19 @@ export const Login = () => {
     setCreds(prev => ({ ...prev, [name]: value }));
   };
   const handleLogin = async(e) =>{
-    e.preventDefault()
+    e.preventDefault();
+
     const { name, value } = e.target;
     
     if(validate(name, value))
     {
       try {
         await userInstance.login(creds,setLoginError);
-        if(loginError.length===0)
-            navigate(`/signup`)
+        if (!loginError) {
+          navigate("/signup"); // Navigate to the root path upon successful login
+        }
       } catch (error) {
-        
+        console.log(error);
       }
     }
 
@@ -80,3 +86,5 @@ export const Login = () => {
     </div>
   )
 }
+
+export default Login;
