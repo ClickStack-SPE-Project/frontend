@@ -5,9 +5,8 @@ import SignUp  from './components/SignUp';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Gallery from './components/Gallery';
 import AlbumDetail from './components/AlbumDetail'; 
-import Login from './components/Login';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ImageUpload from './components/ImageUpload';
+import Navbar from './components/Navbar';
 // import ImageUpload from './components/ImageUpload';
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
     <Router>
       <div>
         <Navbar />
-        <ImageUpload isUploaded={false}/>
+        {/* <ImageUpload isUploaded={false}/> */}
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
