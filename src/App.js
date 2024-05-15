@@ -7,6 +7,7 @@ import Gallery from './components/Gallery';
 import AlbumDetail from './components/AlbumDetail'; 
 import ImageUpload from './components/ImageUpload';
 import Navbar from './components/Navbar';
+import AddAlbum from './components/AddAlbum';
 // import ImageUpload from './components/ImageUpload';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/albums" element={<Gallery />} />
           <Route path="/albums/:albumId" element={<AlbumDetail />} /> 
+          <Route path="/add-album" element={<AddAlbum />} />
           {/* <Route path="/image-upload" element={<ImageUpload />}/> */}
         </Routes>
       </div>

@@ -1,15 +1,22 @@
 import React from 'react';
-// import { Link } from 'react-router-dom'; // Import Link component
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ImageList({ images }) {
+const ImageList = ({ images }) => {
   return (
-    <div className="image-list">
+    <div className="row">
       {images.map((image, index) => (
-        <img key={index} src={image} alt={`Image ${index}`} />
+        <div className="col-md-4 mb-4" key={index}>
+          <div className="card h-100">
+            <img
+              src={image.link}
+              alt={`Image ${index}`}
+              className="card-img-top img-fluid rounded"
+            />
+          </div>
+        </div>
       ))}
-      
     </div>
   );
-}
+};
 
 export default ImageList;

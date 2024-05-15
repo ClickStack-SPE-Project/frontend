@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Album from './Album';
-import ImageList from './ImageList';
+import galleryInstance from './Services/galleryServices';
 import { Link } from 'react-router-dom';
-
-const albums = [
-  { id: 1, name: 'Album 1', images: ['../Resources/gallery.png', '../Resources/gallery.png', '../Resources/gallery.png'] },
-  { id: 2, name: 'Album 2', images: ['../Resources/gallery.png', '../Resources/gallery.png', '../Resources/gallery.png'] },
-];
-
+import './Gallery.css';
 const Gallery = () => {
+  const [albums, setAlbums] = useState([]);
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      try {
+        const albumData = await galleryInstance.getAllAlbums();
+        setAlbums(albumData);
+      } catch (error) {
+        console.error('Error fetching albums:', error);
+      }
+    };
+
+    fetchAlbums();
+  }, []);
+
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
   const handleAlbumClick = (albumId) => {
@@ -16,15 +25,15 @@ const Gallery = () => {
   };
 
   return (
-    <div>
+    <div className="gallery-container">
       <ul className="album-list mt">
         {albums.map(album => (
-          <li key={album.id}>
-            <Album albumName={album.name} albumId={album.id} onClick={() => handleAlbumClick(album.id)} />
+          <li key={album.name}>
+            <Album albumName={album.name} albumId={album.name} onClick={() => handleAlbumClick(album.name)} />
           </li>
         ))}
       </ul>
-      {selectedAlbum && <ImageList images={albums[selectedAlbum - 1].images} />} {/* Adjusted to use selectedAlbum - 1 as index */}
+      <Link to="/add-album" className="btn btn-primary floating-add-button">Add Album</Link>
     </div>
   );
 };

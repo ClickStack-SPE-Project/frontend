@@ -7,7 +7,7 @@ const Navbar = () => {
     <AppBar position="static" color="primary">
       <Toolbar style={{ justifyContent: 'space-between' }}>
         <Typography variant="h6">
-          Photos
+          click Stack
         </Typography>
         <div>
           <AccountCircle />

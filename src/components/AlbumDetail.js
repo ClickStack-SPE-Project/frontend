@@ -1,27 +1,32 @@
-import React from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams to access route parameters
-import ImageList from './ImageList'; // Import ImageList component
-
-const albums = [
-    { id: 1, name: 'Album 1', images: ['./Resources/gallery.png', './Resources/gallery.png', './Resources/gallery.png'] },
-    { id: 2, name: 'Album 2', images: ['./Resources/gallery.png', './Resources/gallery.png', './Resources/gallery.png'] },
-    // Add more albums as needed
-];
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ImageList from './ImageList';
+import galleryInstance from './Services/galleryServices';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AlbumDetail = () => {
-    const { albumId } = useParams(); // Access albumId from route parameters
-    const selectedAlbum = albums.find(album => album.id === parseInt(albumId));
+  const { albumId } = useParams();
+  const [selectedAlbum, setselectedAlbum] = useState([]);
 
-    if (!selectedAlbum) {
-        return <div>Album not found!</div>;
-    }
+  useEffect(() => { 
+    const fetchAlbums = async () => {
+      try {
+        const albumData = await galleryInstance.getAllPhotos(albumId);
+        setselectedAlbum(albumData);
+      } catch (error) {
+        console.error('Error fetching albums:', error);
+      }
+    };
 
-    return (
-        <div>
-            <h2>{selectedAlbum.name}</h2>
-            <ImageList images={selectedAlbum.images} />
-        </div>
-    );
+    fetchAlbums();
+  }, [albumId]);
+
+  return (
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Album: {albumId}</h2>
+      <ImageList images={selectedAlbum} />
+    </div>
+  );
 };
 
 export default AlbumDetail;

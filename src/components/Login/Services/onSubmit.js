@@ -2,7 +2,7 @@ import axios from "axios"
 
 const BASE_URI = process.env.REACT_APP_BASE_URI
 class Users {
-    login(creds,setLoginError){ 
+    async login(creds,setLoginError){ 
         axios.post(BASE_URI + "/auth/authenticate", creds)
         .then((response) => {
             if (response.status === 200) {
