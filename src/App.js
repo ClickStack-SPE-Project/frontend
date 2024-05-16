@@ -8,6 +8,7 @@ import AlbumDetail from './components/AlbumDetail';
 import ImageUpload from './components/ImageUpload';
 import Navbar from './components/Navbar';
 import AddAlbum from './components/AddAlbum';
+import EditAlbum from './components/EditAlbum';
 // import ImageUpload from './components/ImageUpload';
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
           <Route path="/albums" element={<Gallery />} />
           <Route path="/albums/:albumId" element={<AlbumDetail />} /> 
           <Route path="/add-album" element={<AddAlbum />} />
-          {/* <Route path="/image-upload" element={<ImageUpload />}/> */}
+          <Route path="/edit-album/:albumId" element={<EditAlbum/>}/>
+          <Route path="/image-upload/:albumId" element={<ImageUpload />}/>
         </Routes>
       </div>
       </Router>

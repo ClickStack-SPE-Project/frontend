@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
-import '../components/ImageUpload.css'; 
+import './ImageUpload.css'; 
+import { useNavigate, useParams } from 'react-router-dom';
+const BASE_URI = process.env.REACT_APP_BASE_URI;
 
-const ImageUpload = ({ isUploaded }) => {
-  const [isDialogActive, setDialogActive] = useState(false);
+const ImageUpload = ({ isUploaded, isDialogActive, setDialogActive }) => {
   const [selectedFile, setSelectedFile] = useState('');
-  const [description, setDescription] = useState('');
-  const [tags, setTags] = useState('');
-
-  const upload = () => {
-    setDialogActive(true);
-  };
+  const { albumId } = useParams();
+  const navigate = useNavigate();
 
   const save = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('image', selectedFile);
-    formData.append('description', description);
-    formData.append('tags', tags);
+    formData.append('imageFile', selectedFile);
 
-    fetch('http://localhost:3000/image/upload', {
+    fetch(`${BASE_URI}/photos/createPhoto/${albumId}`, {
       method: 'POST',
       body: formData,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accesstoken")
+      }
     })
-      .then((res) => {
-        if (res.status === 201) {
+      .then((response) => {
+        if (response.status === 200) {
           setDialogActive(false);
           isUploaded(true);
+          navigate(`/albums/${albumId}`);
         }
       })
       .catch((err) => console.log(err));
@@ -40,35 +39,12 @@ const ImageUpload = ({ isUploaded }) => {
   };
 
   return (
-    <div className="image-upload-container">
-      <button className="upload-button" onClick={upload}>
-        Upload New Image
-      </button>
+    <>
       {isDialogActive && (
         <div className="dialog-overlay">
           <div className="dialog-content">
             <h2>Upload Image</h2>
             <form onSubmit={save}>
-              <div>
-                <label>Image Description</label>
-                <input
-                  className="form-input"
-                  type="text"
-                  placeholder="Image Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Image Tags</label>
-                <input
-                  className="form-input"
-                  type="text"
-                  placeholder="Ex: tag1, tag2, tag3"
-                  value={tags}
-                  onChange={(e) => setTags(e.target.value)}
-                />
-              </div>
               <div>
                 <input type="file" onChange={onFileUpload} />
               </div>
@@ -84,7 +60,7 @@ const ImageUpload = ({ isUploaded }) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
