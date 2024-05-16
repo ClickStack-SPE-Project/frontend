@@ -5,7 +5,7 @@ import addAlbumInstance from './onSubmit';
 const AddAlbum = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({ name: "", description: "" });
-
+  const [error,setError] = useState();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData(prev => ({ ...prev, [name]: value }));
@@ -15,11 +15,10 @@ const AddAlbum = () => {
     e.preventDefault();
     
     try {
-      const result = await addAlbumInstance.addAlbum(data);
-      // console.log(result);
-      // if (result === 'Album Successfully Created') 
-      navigate('/albums'); 
-      window.location.reload();
+      await addAlbumInstance.addAlbum(data,setError);
+      if (error === '') 
+      {navigate('/albums'); 
+      window.location.reload();}
     } catch (error) {
       console.log(error);
     }

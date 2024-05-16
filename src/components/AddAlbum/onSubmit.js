@@ -2,7 +2,7 @@ import axios from "axios"
 
 const BASE_URI = process.env.REACT_APP_BASE_URI
 class AddAlbum {
-    async addAlbum(data){ 
+    async addAlbum(data,setError){ 
         axios.post(BASE_URI + "/album/createAlbum", data, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("accesstoken")
@@ -10,14 +10,14 @@ class AddAlbum {
         })
         .then((response) => {
             if (response.status === 200) {
-            return response.data;
+            setError("")
         }
         })
         .catch((error) => {
             if (error.response && (error.response.status === 403 || error.response.status === 401)) {
-                return "You are not Authorized to create"
+                setError("You are not Authorized to create")
             } else {
-                return "An unexpected error occurred. Please try again later."
+                setError("An unexpected error occurred. Please try again later.")
             }
         })
     
