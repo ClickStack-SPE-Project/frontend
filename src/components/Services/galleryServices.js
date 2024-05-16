@@ -66,6 +66,48 @@ class Gallery {
             }
         }
     }
+    async deletePhoto(image,albumName) {
+        try {
+            const response = await axios.delete(BASE_URI +"/photos/deletePhoto/"+albumName+"/"+image.name, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("accesstoken")
+                }
+            });
+
+            if (response.status === 200) {
+                return response.data;
+            } else {
+                throw new Error("Unexpected response status: " + response.status);
+            }
+        } catch (error) {
+            if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+                return "You are not Authorized";
+            } else {
+                return "An unexpected error occurred. Please try again later.";
+            }
+        }
+    }
+    async downloadPhoto(imageName) {
+        try {
+            const response = await axios.get(BASE_URI +"/photos/download/"+imageName, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("accesstoken")
+                }
+            });
+
+            if (response.status === 200) {
+                return response.data;
+            } else {
+                throw new Error("Unexpected response status: " + response.status);
+            }
+        } catch (error) {
+            if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+                return "You are not Authorized";
+            } else {
+                return "An unexpected error occurred. Please try again later.";
+            }
+        }
+    }
 }
 
 const galleryInstance = new Gallery();

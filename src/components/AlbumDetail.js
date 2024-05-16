@@ -53,7 +53,7 @@ const AlbumDetail = () => {
           <button className="btn btn-warning" onClick={onEdit}>Edit</button>
         {/* </div> */}
       </div>
-      <ImageList images={selectedAlbum} />
+      <ImageList images={selectedAlbum} albumId={albumId}/>
       <button className="btn btn-primary floating-add-button" onClick={() => setDialogActive(true)}>
         Add Photos
       </button>
