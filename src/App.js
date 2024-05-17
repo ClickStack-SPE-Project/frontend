@@ -9,6 +9,7 @@ import ImageUpload from './components/ImageUpload';
 import Navbar from './components/Navbar';
 import AddAlbum from './components/AddAlbum';
 import EditAlbum from './components/EditAlbum';
+import HomePage from './components/HomePage';
 // import ImageUpload from './components/ImageUpload';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Navbar />
         {/* <ImageUpload isUploaded={false}/> */}
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/albums" element={<Gallery />} />
