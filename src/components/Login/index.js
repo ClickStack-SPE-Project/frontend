@@ -54,7 +54,7 @@ const Login = () => {
     {
       try {
         await userInstance.login(creds,setLoginError);
-        if (!loginError) {
+        if (loginError==="Success") {
           navigate("/albums"); // Navigate to the root path upon successful login
           window.location.reload();
         }

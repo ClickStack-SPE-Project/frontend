@@ -26,13 +26,17 @@ const Gallery = () => {
 
   return (
     <div className="gallery-container">
+      {albums.length > 0 ? (
       <ul className="album-list mt">
-        {albums.map(album => (
-          <li key={album.name}>
-            <Album albumName={album.name} albumId={album.name} onClick={() => handleAlbumClick(album.name)} />
-          </li>
-        ))}
+         {albums.map(album => (
+            <li key={album.id}>
+              <Album albumName={album.name} albumId={album.id} onClick={() => handleAlbumClick(album.id)} />
+            </li>
+          ))}
       </ul>
+      ) : (
+        <p>No albums available</p>
+      )}
       <Link to="/add-album" className="btn btn-primary floating-add-button">Add Album</Link>
     </div>
   );
