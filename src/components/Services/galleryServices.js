@@ -24,7 +24,7 @@ class Gallery {
             }
         }
     }
-    async getAllPhotos(albumName) {
+    async getAllPhotos(albumName,setErrorAlbum) {
         try {
             const response = await axios.get(BASE_URI +"/photos/getAllPhotos/"+albumName, {
                 headers: {
@@ -39,8 +39,15 @@ class Gallery {
             }
         } catch (error) {
             if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+                setErrorAlbum("You are not Authorized");
                 return "You are not Authorized";
-            } else {
+            } 
+            if (error.response && (error.response.status === 404 )) {
+                setErrorAlbum("No Data Available");
+                return "No Data Available";
+            } 
+            else {
+                setErrorAlbum("An unexpected error occurred. Please try again later.");
                 return "An unexpected error occurred. Please try again later.";
             }
         }

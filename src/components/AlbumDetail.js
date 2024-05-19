@@ -10,12 +10,13 @@ const AlbumDetail = () => {
   const { albumId } = useParams();
   const [selectedAlbum, setSelectedAlbum] = useState([]);
   const [isDialogActive, setDialogActive] = useState(false);
+  const [errorAlbum,setErrorAlbum] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const albumData = await galleryInstance.getAllPhotos(albumId);
+        const albumData = await galleryInstance.getAllPhotos(albumId,setErrorAlbum);
         setSelectedAlbum(albumData);
       } catch (error) {
         console.error('Error fetching albums:', error);
@@ -53,7 +54,9 @@ const AlbumDetail = () => {
           <button className="btn btn-warning" onClick={onEdit}>Edit</button>
         {/* </div> */}
       </div>
+      {errorAlbum==="" ?(
       <ImageList images={selectedAlbum} albumId={albumId}/>
+      ):(<p>{errorAlbum}</p>)}
       <button className="btn btn-primary floating-add-button" onClick={() => setDialogActive(true)}>
         Add Photos
       </button>
