@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URI = process.env.REACT_APP_BASE_URI
+import {BASE_URI} from "../../../utils";
 class Users {
     async login(creds,setLoginError){ 
         axios.post(BASE_URI + "/auth/authenticate", creds)

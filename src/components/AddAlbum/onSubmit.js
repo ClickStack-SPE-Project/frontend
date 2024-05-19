@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URI = process.env.REACT_APP_BASE_URI
+import {BASE_URI} from "../../utils";
 class AddAlbum {
     async addAlbum(data,setError){ 
         axios.post(BASE_URI + "/album/createAlbum", data, {

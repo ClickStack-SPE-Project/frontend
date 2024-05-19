@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './ImageUpload.css'; 
 import { useNavigate, useParams } from 'react-router-dom';
-const BASE_URI = process.env.REACT_APP_BASE_URI;
+import {BASE_URI} from "../utils";
+
 
 const ImageUpload = ({ isUploaded, isDialogActive, setDialogActive }) => {
   const [selectedFile, setSelectedFile] = useState('');
