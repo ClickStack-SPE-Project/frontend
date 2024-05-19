@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
 import userInstance from './Services/onSubmit';
-
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [creds, setCreds] = useState({ name: "",email: "", password: "" });
   const [errs, setErrs] = useState({ name: "",email: "", password: "" });
   const [signupError, setsignupError] = useState('');
@@ -52,9 +52,9 @@ const SignUp = () => {
     {
       try {
         await userInstance.signUp(creds,setsignupError);
-        if (!signupError) {
-          // navigate("/signup"); // Navigate to the root path upon successful login
-          console.log(creds)
+        if (signupError==="Success") {
+          navigate("/albums"); // Navigate to the root path upon successful login
+          // console.log(creds)
         }
       } catch (error) {
         console.log(error);
